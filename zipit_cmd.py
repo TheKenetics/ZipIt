@@ -11,9 +11,14 @@ Usage:
 	Otherwise, it will zip each folder in the current working directory.
 """
 
-def get_folder_list(folder):
+def get_subfolder_list(folder):
 	# Returns list of folders in folder
 	return [item for item in os.listdir(folder) if os.path.isdir( os.path.join(folder, item) )]
+
+def zip_folders(folders):
+	for folder in folders:
+		print( "Zipping {0} into {0}.zip".format(folder) )
+		shutil.make_archive(folder, 'zip', folder)
 
 def main():
 	current_folder = None
@@ -24,11 +29,10 @@ def main():
 	
 	print("Current Folder = " + current_folder)
 
-	folders = get_folder_list(current_folder)
-	
-	for folder in folders:
-		print( "Zipping {0} into {0}.zip".format(folder) )
-		shutil.make_archive(folder, 'zip', folder)
+	subfolders = get_subfolder_list(current_folder)
+
+	zip_folders(subfolders)
+
 
 if __name__ == "__main__":
 	main()
